@@ -7,7 +7,7 @@ const apiPath = 'luckymia';
 let productModal = {};
 let delProductModal = {};
 
-const app ={
+const app =createApp ({
     data(){
         return{
             products:[],
@@ -90,11 +90,11 @@ const app ={
         productModal = new bootstrap.Modal('#productModal');
         delProductModal = new bootstrap.Modal('#delProductModal');
     },
-}
+});
 
 app.component('product-modal',{
     props:['tempProduct','updateProduct'],
     template:'#product-modal-template',
   })
   
-createApp(app).mount('#app');
+app.mount('#app');
