@@ -92,9 +92,9 @@ const app =createApp ({
     },
 });
 
-app.component('product-modal',{
+app.component('product-modal', {
     props:['tempProduct','updateProduct'],
     template:'#product-modal-template',
-  })
+  });
   
 app.mount('#app');
