@@ -37,6 +37,9 @@ const app =createApp ({
                 this.products = res.data.products;
                 this.page = res.data.pagination;
               })
+              .catch((err)=>{
+                alert(err.data.message);
+              })
         },
         updateProduct(){
           let url = `${site}/api/${apiPath}/admin/product`;
@@ -51,6 +54,9 @@ const app =createApp ({
               this.getProducts();
               productModal.hide(); //關閉modal
             })
+            .catch((err)=>{
+              alert(err.data.message);
+            })
         },
         deleteProduct(){
           const url = `${site}/api/${apiPath}/admin/product/${this.tempProduct.id}`;
@@ -59,10 +65,13 @@ const app =createApp ({
               this.getProducts();
               delProductModal.hide(); //關閉modal
             })
+            .catch((err)=>{
+              alert(err.data.message);
+            })
         },
-        openModel(status, product){
+        openModal(status, product){
           if (status === 'create'){  //判斷是編輯還是新增
-            productModal.show(); //點擊後打開model
+            productModal.show(); //點擊後打開modal
             this.isNew = true;
             //帶入初始化資料
             this.tempProduct = {
@@ -83,8 +92,8 @@ const app =createApp ({
         pagination,
       },
     mounted() {
-        const myCookie = document.cookie.replace(/(?:(?:^|.*;\s*)test2\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-        axios.defaults.headers.common.Authorization = myCookie;
+      const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, '$1');
+      axios.defaults.headers.common.Authorization = token;
         this.checkLogin();
 
         productModal = new bootstrap.Modal('#productModal');

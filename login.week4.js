@@ -14,15 +14,15 @@ const app = {
             const api = 'https://vue3-course-api.hexschool.io/v2/admin/signin';
             axios.post(api, this.user)
               .then((res)=>{
-                const { expired, token } = res.data;
-                document.cookie = `hexToken=${token}; expires=${new Date(expired)};`;
-                window.location = 'products.week4.html';
+                const { token, expired } = res.data;
+                document.cookie = `hexToken=${token};expires=${new Date(expired)}; path=/`;
+                window.location = 'products.html';
               })
               .catch((err)=>{
-                alert(err.res.data.message);
+                alert(err.data.message);
               })
         },
-    }
+    },
 }
 
 createApp(app).mount('#app')
