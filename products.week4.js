@@ -1,13 +1,13 @@
 import { createApp } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
-import pagination from "./pagination.week4.js";
+import pagination from "./pagination.week4.js"; //匯入分頁元件
 
 const site = 'https://vue3-course-api.hexschool.io/v2';
 const apiPath = 'luckymia';
 
-let productModal = {};
-let delProductModal = {};
+let productModal = null;
+let delProductModal = null;
 
-const app =createApp ({
+const app = createApp ({
     data(){
         return{
             products:[],
@@ -16,13 +16,13 @@ const app =createApp ({
             },
             isNew: false,
             page:{},
-        }
+        };
     },
     methods: {
         checkLogin(){
             const checkUrl = `${site}/api/user/check`;
             axios.post(checkUrl) //驗證
-              .then((res)=>{
+              .then(()=>{
                 this.getProducts();
               }) 
               .catch((err)=>{
@@ -61,7 +61,7 @@ const app =createApp ({
         deleteProduct(){
           const url = `${site}/api/${apiPath}/admin/product/${this.tempProduct.id}`;
           axios.delete(url) //新增產品或編輯產品
-            .then((res)=>{
+            .then(()=>{
               this.getProducts();
               delProductModal.hide(); //關閉modal
             })
@@ -76,7 +76,7 @@ const app =createApp ({
             //帶入初始化資料
             this.tempProduct = {
               imagesUrl: [],
-            }
+            };
           } else if (status === 'edit'){
             productModal.show(); 
             this.isNew = false;
@@ -101,9 +101,14 @@ const app =createApp ({
     },
 });
 
-app.component('product-modal', {
-    props:['tempProduct','updateProduct'],
-    template:'#product-modal-template',
+app.component("product-modal", {
+    props:["tempProduct","updateProduct","isNew"],
+    template:"#product-modal-template",
   });
+
+app.component('delete-modal',{
+  props:['tempProduct','deleteProducts'],
+  template:'#delProduct-modal-template',
+});
   
 app.mount('#app');
