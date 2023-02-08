@@ -101,7 +101,7 @@ const app =createApp ({
     },
 });
 
-app.component('product-modal', {
+app.components('product-modal', {
     props:['tempProduct','updateProduct'],
     template:'#product-modal-template',
   });
