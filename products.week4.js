@@ -31,7 +31,7 @@ const app = createApp ({
               })
         },
         getProducts(page = 1){ //參數預設值
-            const getProductsUrl = `${this.site}/api/${this.apiPath}/admin/products/?page=${page}`;
+            const getProductsUrl = `${site}/api/${apiPath}/admin/products/?page=${page}`;
             axios.get(getProductsUrl)  //取得產品
               .then((res)=>{
                 this.products = res.data.products;
